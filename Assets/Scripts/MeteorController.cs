@@ -5,7 +5,7 @@
  * @author Taylor McKinney, Bursting Brains
  */
 
-using UnityEngine;
+using UnityEngine; 
 using System;
 
 public class MeteorController : MonoBehaviour, IBBCameraTarget {
