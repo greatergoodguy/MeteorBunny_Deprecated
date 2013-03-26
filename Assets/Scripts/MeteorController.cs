@@ -14,7 +14,7 @@ public class MeteorController : MonoBehaviour, IBBCameraTarget {
   public float MaximumFallingSpeed = 20.0f;
   public float FallingRate = 1.0f;
   public float FallingAccelerationRate = 9.80f;
-  public Vector3 FallingDirection = new Vector3 (0, -1, 0);
+  public float GroundLevel = 0.0f;
 
   // Private Members
   private Vector3 velocity;
@@ -48,13 +48,14 @@ public class MeteorController : MonoBehaviour, IBBCameraTarget {
    * Adds gravity into the velocity vector
    */
   private void ApplyGravity() {
-    RealFallingRate += FallingAccelerationRate * Time.deltaTime;
+    RealFallingRate -= FallingAccelerationRate * Time.deltaTime;
     RealFallingRate = Mathf.Min(RealFallingRate, MaximumFallingSpeed);
 
-    Vector3 FallingVelocity = FallingDirection * RealFallingRate;
-    Vector3 FallingDistance = FallingVelocity * Time.deltaTime;
+    float FallingDistance = RealFallingRate * Time.deltaTime;
+	float DistanceToGround = GroundLevel - transform.position.y;
+	FallingDistance = Mathf.Max(DistanceToGround, FallingDistance);
 
-    controller.Move(FallingDistance);
+    controller.Move(new Vector3(0, FallingDistance, 0));
   }
 
   /**
