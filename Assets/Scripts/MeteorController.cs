@@ -15,6 +15,8 @@ public class MeteorController : MonoBehaviour, IBBCameraTarget {
   public float FallingRate = 1.0f;
   public float FallingAccelerationRate = 9.80f;
   public float GroundLevel = 0.0f;
+	
+  public float horizontalSpeed = 10.0f;
 
   // Private Members
   private Vector3 velocity;
@@ -38,6 +40,13 @@ public class MeteorController : MonoBehaviour, IBBCameraTarget {
    */
   private void ApplyMovement() {
     lastPosition = transform.position;
+	
+	var horAxis = Input.GetAxis ("Horizontal");
+	
+	Vector3 tempPosition = transform.position;
+	tempPosition.x += horAxis * horizontalSpeed * Time.deltaTime;
+	transform.position = tempPosition;
+		
     ApplyGravity();
 
     // Must be at the end
