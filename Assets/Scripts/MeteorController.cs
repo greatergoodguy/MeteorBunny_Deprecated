@@ -41,11 +41,19 @@ public class MeteorController : MonoBehaviour, IBBCameraTarget {
   private void ApplyMovement() {
     lastPosition = transform.position;
 	
+	/*
+	 * Tom Yu's first solution
+	 * 
 	var horAxis = Input.GetAxis ("Horizontal");
 	
 	Vector3 tempPosition = transform.position;
 	tempPosition.x += horAxis * horizontalSpeed * Time.deltaTime;
 	transform.position = tempPosition;
+	*/
+		
+	float horAxis = Input.GetAxis("Horizontal");
+	horAxis *= horizontalSpeed * Time.deltaTime;
+	controller.Move(new Vector3(horAxis, 0, 0));
 		
     ApplyGravity();
 
