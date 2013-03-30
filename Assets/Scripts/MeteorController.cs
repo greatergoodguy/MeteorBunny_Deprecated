@@ -52,8 +52,8 @@ public class MeteorController : MonoBehaviour, IBBCameraTarget {
 	*/
 		
 	float horAxis = Input.GetAxis("Horizontal");
-	horAxis *= horizontalSpeed * Time.deltaTime;
-	controller.Move(new Vector3(horAxis, 0, 0));
+	float horDistance = horAxis * horizontalSpeed * Time.deltaTime;
+	controller.Move(new Vector3(horDistance, 0, 0));
 		
     ApplyGravity();
 
@@ -78,16 +78,16 @@ public class MeteorController : MonoBehaviour, IBBCameraTarget {
   /**
    * Run when the object is instantiated
    */
-	void Start () {
+  void Start () {
     velocity = new Vector3(0, 0, 0);
     RealFallingRate = FallingRate;
     controller = GetComponent<CharacterController>();
-	}
+  }
 	
-	/**
+  /**
    * Runs every frame
    */
 	void Update () {
     ApplyMovement();
-	}
+  }
 }

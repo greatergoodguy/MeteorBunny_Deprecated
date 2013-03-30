@@ -13,17 +13,24 @@ public class CameraController : MonoBehaviour {
 	public IBBCameraTarget target;
 	
 	private Vector3 targetOffset;
+	private float anchorX;
 	
 	/**
-	 * Sets <code>targetPosition</code> to the desired value.
-	 * <p>
-	 * Will set the <code>targetPosition</code> either left or right of the target <code>character</code>
-	 * based on <code>controller.GetDirection()</code>.
+	 * Start up the camera
+	 * If a target isn't given, we just assume it's the meteor
 	 */
-	private Vector3 GetTargetPosition () {
-		Vector3 targetPosition = target.getPosition () + targetOffset;
-		targetPosition.x *= target.getVelocity ().x;
-		return targetPosition;
+	void Start () {
+		if (target == null) {
+			target = (IBBCameraTarget) GameObject.Find("Meteor").GetComponent("MeteorController");
+		}
+		
+		targetOffset = new Vector3(xOffset, yOffset, -1 * zOffset);
+		anchorX = target.getPosition().x;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		Move ();
 	}
 	
 	/**
@@ -36,40 +43,10 @@ public class CameraController : MonoBehaviour {
 	 * will center out as they hold still
 	 */
 	private void Move () {
-		// Total distance to move along all axises
-		// Vector3 movementToTarget = GetTargetPosition() - transform.position;
 		
-		// Move towards the target, limited by deltaTime and the transitionSpeed
-		// Vector3 movementVelocity = transitionSpeed * Time.deltaTime * movementToTarget;
+		Vector3 targetPosition = target.getPosition() + targetOffset;
+		targetPosition.x = anchorX;
 		
-		// Adjust for player movement
-		// movementVelocity += Time.deltaTime * target.getVelocity ();
-		
-		// This line moves the camera more based on how far the camera is from the target position
-		// movementVelocity += Time.deltaTime * Time.deltaTime * transitionAcceleration * movementToTarget;
-
-    // Vector3 finalPosition = transform.position + movementVelocity;
-	
-		// Actually applies the movement
-    // transform.position = finalPosition;
-
-    transform.position = GetTargetPosition();
-
-	}
-	
-	/**
-	 * Start up the camera
-	 * If a target isn't given, we just assume it's the meteor
-	 */
-	void Start () {
-		if (target == null) {
-			target = (IBBCameraTarget) GameObject.Find("Meteor").GetComponent("MeteorController");
-		}
-		targetOffset = new Vector3(xOffset, yOffset, -1 * zOffset);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		Move ();
+ 	    transform.position = targetPosition;
 	}
 }
