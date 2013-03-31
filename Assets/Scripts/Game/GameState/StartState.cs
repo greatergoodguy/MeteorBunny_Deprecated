@@ -3,7 +3,7 @@ using System.Collections;
 
 public class StartState : IGameState {
 
-	private const float timeLimitInSeconds = 10.0f;
+	private const float timeLimitInSeconds = 2.0f;
 	
 	private float timer;
 	
@@ -17,7 +17,6 @@ public class StartState : IGameState {
 	
 	public void update () {
 		timer += Time.deltaTime;
-		Debug.Log ("timer: " + timer);
 	}
 	
 	public void exitState () {

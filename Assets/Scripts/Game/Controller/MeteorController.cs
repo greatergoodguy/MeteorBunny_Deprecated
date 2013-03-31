@@ -9,7 +9,9 @@ using UnityEngine;
 using System;
 
 public class MeteorController {
-
+	
+	private const float MAX_VERTICAL_VELOCITY = 5.0f;
+	
 	public float horizontalVelocity = 10.0f;
 	
 	private float accel = 9.8f;
@@ -35,6 +37,10 @@ public class MeteorController {
 		
 	public void ApplyGravity() {
 		verticalVelocity = verticalVelocity + accel * Time.deltaTime;
+		verticalVelocity = Math.Min(verticalVelocity, MAX_VERTICAL_VELOCITY);
+		
+		Debug.Log ("verticalVelocity: " + verticalVelocity);
+		
 		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * accel * Time.deltaTime * Time.deltaTime;
 		characterController.Move(new Vector3(0, -fallDistance, 0));
 	}
