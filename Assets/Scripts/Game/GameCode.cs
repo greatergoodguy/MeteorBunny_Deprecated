@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
+	
 public class GameCode : MonoBehaviour {
 	
 	public GameObject meteor;
@@ -8,9 +9,8 @@ public class GameCode : MonoBehaviour {
 	
 	private MeteorController meteorController;
 	
-	private IGameState runningState;
-	private IGameState finishState;
-	
+	private List<IGameState> gameStates;
+	private int gameStateIndex;
 	private IGameState activeState;
 	
 	void Start () {
@@ -18,11 +18,14 @@ public class GameCode : MonoBehaviour {
 		DebugUtils.Assert(planet != null);
 		
 		meteorController = new MeteorController(meteor, planet);
+		gameStates = new List<IGameState>();
+		gameStateIndex = 0;
 		
-		runningState = new RunningState(meteorController);
-		finishState = new FinishState(meteorController);
+		gameStates.Add(new StartState());
+		gameStates.Add(new RunningState(meteorController));
+		gameStates.Add(new FinishState(meteorController));
 		
-		activeState = runningState;
+		activeState = gameStates[gameStateIndex];
 		
 		activeState.enterState();
 	}
@@ -31,7 +34,7 @@ public class GameCode : MonoBehaviour {
 		activeState.update();
 		
 		if(activeState.isStateFinished()){
-			changeGameState(finishState);
+			advaceGameStateList();
 		}
 	}
 	
@@ -39,6 +42,22 @@ public class GameCode : MonoBehaviour {
 		activeState.exitState();
 		
 		activeState = newGameState;
+		activeState.enterState();
+	}
+	
+		
+	void advaceGameStateList(){
+		activeState.exitState();
+		
+		if(gameStateIndex < gameStates.Count){
+			gameStateIndex++;
+		}
+		else{
+			gameStateIndex = gameStates.Count - 1;
+		}
+		
+		
+		activeState = gameStates[gameStateIndex];
 		activeState.enterState();
 	}
 }

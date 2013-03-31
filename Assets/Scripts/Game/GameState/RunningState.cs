@@ -2,8 +2,6 @@ using UnityEngine;
 using System.Collections;
 
 public class RunningState : IGameState {
-	
-	
 	private MeteorController meteorController;
 	
 	public RunningState(MeteorController meteorController){
