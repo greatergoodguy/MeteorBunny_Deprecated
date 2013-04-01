@@ -13,7 +13,7 @@ public class GameCode : MonoBehaviour {
 	private int gameStateIndex;
 	private IGameState activeState;
 	
-	void Start () {
+	void Awake () {
 		DebugUtils.Assert(meteor != null);
 		DebugUtils.Assert(planet != null);
 		
@@ -28,6 +28,9 @@ public class GameCode : MonoBehaviour {
 		activeState = gameStates[gameStateIndex];
 		
 		activeState.enterState();
+	}
+	
+	void Start () {
 	}
 	
 	void Update () {
@@ -59,5 +62,11 @@ public class GameCode : MonoBehaviour {
 		
 		activeState = gameStates[gameStateIndex];
 		activeState.enterState();
+	}
+	
+	public MeteorController getMeteorController(){
+		DebugUtils.Assert(meteorController != null);
+		
+		return meteorController;
 	}
 }
