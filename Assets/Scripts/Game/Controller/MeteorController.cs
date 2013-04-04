@@ -10,7 +10,7 @@ using System;
 
 public class MeteorController {
 	
-	private const float MAX_VERTICAL_VELOCITY = 25.0f;
+	private const float MAX_VERTICAL_VELOCITY = 1.0f;
 	
 	public float horizontalVelocity = 10.0f;
 	
@@ -19,18 +19,20 @@ public class MeteorController {
 	
 	private GameObject planet;
 	private GameObject meteor;
+	private IInput input;
 	
 	private CharacterController characterController;
 	
-	public MeteorController(GameObject meteor, GameObject planet){
+	public MeteorController(GameObject meteor, GameObject planet, IInput input){
 		this.planet = planet;
 		this.meteor = meteor;
+		this.input = input;
 		
 		this.characterController = meteor.GetComponent<CharacterController>();
 	}
 			
 	public void ApplyController() {
-		float horAxis = Input.GetAxis("Horizontal");
+		float horAxis = input.getHorizontalAxis();
 		float horDistance = horAxis * horizontalVelocity * Time.deltaTime;
 		characterController.Move(new Vector3(horDistance, 0, 0));
 	}

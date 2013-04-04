@@ -17,7 +17,17 @@ public class GameCode : MonoBehaviour {
 		DebugUtils.Assert(meteor != null);
 		DebugUtils.Assert(planet != null);
 		
-		meteorController = new MeteorController(meteor, planet);
+		IInput input;
+		
+		# if UNITY_EDITOR
+		input = new KeyboardInput();
+		# elif UNITY_ANDROID
+		input = new AndroidInput();
+		# else
+		input = new KeyboardInput();
+		# endif
+		
+		meteorController = new MeteorController(meteor, planet, input);
 		gameStates = new List<IGameState>();
 		gameStateIndex = 0;
 		
