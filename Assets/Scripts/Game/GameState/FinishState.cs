@@ -3,14 +3,14 @@ using System.Collections;
 
 public class FinishState : IGameState {
 	
-	private MeteorController meteorController;
+	private FinishGameGui finishGameGui;
 	
-	public FinishState(MeteorController meteorController){
-		this.meteorController = meteorController;
+	public FinishState(FinishGameGui finishGameGui){
+		this.finishGameGui = finishGameGui;
 	}
 	
 	public void enterState () {
-	
+		finishGameGui.enabled = true;
 	}
 	
 	public void update () {

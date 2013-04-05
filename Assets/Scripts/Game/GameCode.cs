@@ -27,13 +27,16 @@ public class GameCode : MonoBehaviour {
 		input = new KeyboardInput();
 		# endif
 		
+		FinishGameGui finishGameGui = GameObject.Find("FinishGameGui").GetComponent<FinishGameGui>();
+		finishGameGui.enabled = false;
+		
 		meteorController = new MeteorController(meteor, planet, input);
 		gameStates = new List<IGameState>();
 		gameStateIndex = 0;
 		
 		gameStates.Add(new StartState());
 		gameStates.Add(new RunningState(meteorController));
-		gameStates.Add(new FinishState(meteorController));
+		gameStates.Add(new FinishState(finishGameGui));
 		
 		activeState = gameStates[gameStateIndex];
 		

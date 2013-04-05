@@ -10,7 +10,7 @@ using System;
 
 public class MeteorController {
 	
-	private const float MAX_VERTICAL_VELOCITY = 1.0f;
+	private const float MAX_VERTICAL_VELOCITY = 18.0f;
 	
 	public float horizontalVelocity = 10.0f;
 	
