@@ -10,10 +10,9 @@ using System;
 
 public class MeteorController {
 	
-	private const float MAX_VERTICAL_VELOCITY = 10.0f;
-	private const float GRAVITY_ACCELERATION = 9.8f / 2;
-	
-	private float horizontalVelocity = 10.0f;
+	private float maxInitialVerticalVelocity;
+	private float gravityAccel;
+	private float horizontalVelocity;
 	
 	private float verticalVelocity = 0;
 	
@@ -23,12 +22,20 @@ public class MeteorController {
 	
 	private CharacterController characterController;
 	
-	public MeteorController(GameObject meteor, GameObject planet, IInput input){
+	public MeteorController(GameObject meteor, GameObject planet, IInput input, GameConstants gameConstants){
 		this.planet = planet;
 		this.meteor = meteor;
 		this.input = input;
 		
 		this.characterController = meteor.GetComponent<CharacterController>();
+		
+		maxInitialVerticalVelocity 	= gameConstants.maxInitialVerticalVelocity;
+		gravityAccel 				= gameConstants.gravityAcceleration;
+		horizontalVelocity 			= gameConstants.horizontalVelocity;
+		
+		DebugUtils.Assert(maxInitialVerticalVelocity != 0);
+		DebugUtils.Assert(gravityAccel != 0);
+		DebugUtils.Assert(horizontalVelocity != 0);
 	}
 			
 	public void ApplyController() {
@@ -38,10 +45,10 @@ public class MeteorController {
 	}
 		
 	public void ApplyGravity() {
-		verticalVelocity = verticalVelocity + GRAVITY_ACCELERATION * Time.deltaTime;
-		verticalVelocity = Math.Min(verticalVelocity, MAX_VERTICAL_VELOCITY);
+		verticalVelocity = verticalVelocity + gravityAccel * Time.deltaTime;
+		verticalVelocity = Math.Min(verticalVelocity, maxInitialVerticalVelocity);
 		
-		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * GRAVITY_ACCELERATION * Time.deltaTime * Time.deltaTime;
+		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * gravityAccel * Time.deltaTime * Time.deltaTime;
 		characterController.Move(new Vector3(0, -fallDistance, 0));
 	}
 	

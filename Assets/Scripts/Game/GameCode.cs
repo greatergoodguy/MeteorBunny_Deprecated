@@ -30,7 +30,9 @@ public class GameCode : MonoBehaviour {
 		FinishGameGui finishGameGui = GameObject.Find("FinishGameGui").GetComponent<FinishGameGui>();
 		finishGameGui.enabled = false;
 		
-		meteorController = new MeteorController(meteor, planet, input);
+		GameConstants gameConstants = GameObject.Find("GameConstants").GetComponent<GameConstants>();
+		
+		meteorController = new MeteorController(meteor, planet, input, gameConstants);
 		gameStates = new List<IGameState>();
 		gameStateIndex = 0;
 		

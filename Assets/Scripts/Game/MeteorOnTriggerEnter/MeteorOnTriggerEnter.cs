@@ -27,6 +27,9 @@ public class MeteorOnTriggerEnter : MonoBehaviour {
 			tk2dAnimatedSprite balloonAnimSprite = other.GetComponent<tk2dAnimatedSprite>();
 			balloonAnimSprite.Play();
 			
+			AudioSource popSFX = other.audio;
+			popSFX.Play();
+			
 		}
     }
 }
