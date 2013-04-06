@@ -19,5 +19,14 @@ public class MeteorOnTriggerEnter : MonoBehaviour {
 			Debug.Log ("Enter Cloud");
 			meteorController.resetVerticalVelocity();
 		}
+		
+		else if(other.tag == "Balloon"){
+			Debug.Log ("Enter Balloon");
+			//meteorController.resetVerticalVelocity();
+			
+			tk2dAnimatedSprite balloonAnimSprite = other.GetComponent<tk2dAnimatedSprite>();
+			balloonAnimSprite.Play();
+			
+		}
     }
 }

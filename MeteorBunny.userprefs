@@ -1,13 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Game/GameCode.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Game/MeteorOnTriggerEnter/MeteorOnTriggerEnter.cs">
     <Files>
-      <File FileName="Assets/Scripts/Game/Input/KeyboardInput.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Game/Input/IInput.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Game/Input/InputManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Game/Controller/MeteorController.cs" Line="13" Column="48" />
-      <File FileName="Assets/Scripts/Game/GameCode.cs" Line="30" Column="92" />
-      <File FileName="Assets/Scripts/Game/GameState/FinishState.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/Constants/GameConstants.cs" Line="17" Column="3" />
+      <File FileName="Assets/Scripts/Game/Controller/MeteorController.cs" Line="35" Column="45" />
+      <File FileName="Assets/Scripts/Game/GameCode.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/GameState/FinishState.cs" Line="13" Column="32" />
+      <File FileName="Assets/Scripts/Game/UI/FinishGameGui_Deprecated.js" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/UI/FinishGameGui.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/GameState/RunningState.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/MeteorOnTriggerEnter/MeteorOnTriggerEnter.cs" Line="25" Column="33" />
+      <File FileName="Assets/Scripts/Game/Controller/CameraController.cs" Line="15" Column="18" />
+      <File FileName="Assets/TK2DROOT/tk2d/Code/Sprites/tk2dAnimatedSprite.cs" Line="8" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -10,11 +10,11 @@ using System;
 
 public class MeteorController {
 	
-	private const float MAX_VERTICAL_VELOCITY = 18.0f;
+	private const float MAX_VERTICAL_VELOCITY = 10.0f;
+	private const float GRAVITY_ACCELERATION = 9.8f / 2;
 	
-	public float horizontalVelocity = 10.0f;
+	private float horizontalVelocity = 10.0f;
 	
-	private float accel = 9.8f;
 	private float verticalVelocity = 0;
 	
 	private GameObject planet;
@@ -38,10 +38,10 @@ public class MeteorController {
 	}
 		
 	public void ApplyGravity() {
-		verticalVelocity = verticalVelocity + accel * Time.deltaTime;
+		verticalVelocity = verticalVelocity + GRAVITY_ACCELERATION * Time.deltaTime;
 		verticalVelocity = Math.Min(verticalVelocity, MAX_VERTICAL_VELOCITY);
 		
-		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * accel * Time.deltaTime * Time.deltaTime;
+		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * GRAVITY_ACCELERATION * Time.deltaTime * Time.deltaTime;
 		characterController.Move(new Vector3(0, -fallDistance, 0));
 	}
 	
