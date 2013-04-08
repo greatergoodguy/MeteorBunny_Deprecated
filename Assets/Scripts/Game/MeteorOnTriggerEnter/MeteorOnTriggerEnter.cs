@@ -13,14 +13,15 @@ public class MeteorOnTriggerEnter : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other) {
-		Debug.Log ("OnTriggerEnter");	
 		
+		/*
 		if(other.tag == "Cloud"){
 			Debug.Log ("Enter Cloud");
 			meteorController.resetVerticalVelocity();
 		}
+		*/
 		
-		else if(other.tag == "Balloon"){
+		if(other.tag == "Balloon"){
 			Debug.Log ("Enter Balloon");
 			//meteorController.resetVerticalVelocity();
 			
