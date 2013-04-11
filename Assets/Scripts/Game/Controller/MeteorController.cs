@@ -9,12 +9,13 @@ using UnityEngine;
 using System;
 
 public class MeteorController {
+	private float FINAL_MAX_VERTICAL_VELOCITY;
+	private float INITIAL_MAX_VERTICAL_VELOCITY;
 	
-	private float maxInitialVerticalVelocity;
+	private float maxVerticalVelocity;
 	private float gravityAccel;
 	private float horizontalVelocity;
-	
-	private float verticalVelocity = 0;
+	private float verticalVelocity;
 	
 	private GameObject planet;
 	private GameObject meteor;
@@ -31,13 +32,19 @@ public class MeteorController {
 		this.characterController = meteor.GetComponent<CharacterController>();
 		this.fallingSound = meteor.audio;
 		
-		maxInitialVerticalVelocity 	= gameConstants.maxInitialVerticalVelocity;
-		gravityAccel 				= gameConstants.gravityAcceleration;
-		horizontalVelocity 			= gameConstants.horizontalVelocity;
+		FINAL_MAX_VERTICAL_VELOCITY		= gameConstants.finalMaxVerticalVelocity;
+		INITIAL_MAX_VERTICAL_VELOCITY 	= gameConstants.initialMaxVerticalVelocity;
+		maxVerticalVelocity				= INITIAL_MAX_VERTICAL_VELOCITY;
+		gravityAccel 					= gameConstants.gravityAcceleration;
+		horizontalVelocity 				= gameConstants.horizontalVelocity;
+		verticalVelocity 				= 0;
 		
-		DebugUtils.Assert(maxInitialVerticalVelocity != 0);
+		DebugUtils.Assert(INITIAL_MAX_VERTICAL_VELOCITY != 0);
+		DebugUtils.Assert(maxVerticalVelocity != 0);
 		DebugUtils.Assert(gravityAccel != 0);
 		DebugUtils.Assert(horizontalVelocity != 0);
+		
+		DebugUtils.Assert(verticalVelocity == 0);
 	}
 			
 	public void ApplyController() {
@@ -49,6 +56,10 @@ public class MeteorController {
 		float horDistance = horAxis * horizontalVelocity * Time.deltaTime;
 		characterController.Move(new Vector3(horDistance, 0, 0));
 		
+		/*
+		 * 	Code regarding sound. This will be 
+		 * 	refactored if the sound logic gets more complicated.
+		 */ 
 		fallingSound.pitch += horDistance * SCALE_FACTOR;
 		if(fallingSound.pitch > MAX_PITCH){
 			fallingSound.pitch = MAX_PITCH;
@@ -56,20 +67,28 @@ public class MeteorController {
 		else if(fallingSound.pitch < MIN_PITCH){
 			fallingSound.pitch = MIN_PITCH;
 		}
-		
-		Debug.Log ("pitch: " + fallingSound.pitch);
+		// =========================
 	}
 		
 	public void ApplyGravity() {
 		verticalVelocity = verticalVelocity + gravityAccel * Time.deltaTime;
-		verticalVelocity = Math.Min(verticalVelocity, maxInitialVerticalVelocity);
+		verticalVelocity = Math.Min(verticalVelocity, maxVerticalVelocity);
 		
 		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * gravityAccel * Time.deltaTime * Time.deltaTime;
 		characterController.Move(new Vector3(0, -fallDistance, 0));
+		
+		if(maxVerticalVelocity < FINAL_MAX_VERTICAL_VELOCITY)
+			maxVerticalVelocity += Time.deltaTime;
 	}
 	
 	public void resetVerticalVelocity() {
 		verticalVelocity = 0;
+	}
+	
+	public void decreaseMaxVerticalVelocity() {
+		maxVerticalVelocity -= 5;
+		if(maxVerticalVelocity < INITIAL_MAX_VERTICAL_VELOCITY)
+			maxVerticalVelocity = INITIAL_MAX_VERTICAL_VELOCITY;
 	}
 	
 	public bool isGroundLevel(){
@@ -77,5 +96,9 @@ public class MeteorController {
 			return true;
 		
 		return false;
+	}
+	
+	public float getVerticalVelocity(){
+		return verticalVelocity;
 	}
 }

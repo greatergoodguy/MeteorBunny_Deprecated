@@ -13,7 +13,8 @@ public class CloudAI : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		if(other.tag == "Meteor"){
-			meteorController.resetVerticalVelocity();
+			//meteorController.resetVerticalVelocity();
+			meteorController.decreaseMaxVerticalVelocity();
 		}
     }
 }
