@@ -11,9 +11,10 @@ using System;
 public class MeteorController {
 	private float FINAL_MAX_VERTICAL_VELOCITY;
 	private float INITIAL_MAX_VERTICAL_VELOCITY;
+	private float INCREASE_FACTOR;
+	private float GRAVITY_ACCEL;
 	
 	private float maxVerticalVelocity;
-	private float gravityAccel;
 	private float horizontalVelocity;
 	private float verticalVelocity;
 	
@@ -34,14 +35,15 @@ public class MeteorController {
 		
 		FINAL_MAX_VERTICAL_VELOCITY		= gameConstants.finalMaxVerticalVelocity;
 		INITIAL_MAX_VERTICAL_VELOCITY 	= gameConstants.initialMaxVerticalVelocity;
+		INCREASE_FACTOR 				= gameConstants.increaseFactor;
 		maxVerticalVelocity				= INITIAL_MAX_VERTICAL_VELOCITY;
-		gravityAccel 					= gameConstants.gravityAcceleration;
+		GRAVITY_ACCEL 					= gameConstants.gravityAcceleration;
 		horizontalVelocity 				= gameConstants.horizontalVelocity;
 		verticalVelocity 				= 0;
 		
 		DebugUtils.Assert(INITIAL_MAX_VERTICAL_VELOCITY != 0);
 		DebugUtils.Assert(maxVerticalVelocity != 0);
-		DebugUtils.Assert(gravityAccel != 0);
+		DebugUtils.Assert(GRAVITY_ACCEL != 0);
 		DebugUtils.Assert(horizontalVelocity != 0);
 		
 		DebugUtils.Assert(verticalVelocity == 0);
@@ -71,27 +73,54 @@ public class MeteorController {
 	}
 		
 	public void ApplyGravity() {
-		verticalVelocity = verticalVelocity + gravityAccel * Time.deltaTime;
+		verticalVelocity = verticalVelocity + GRAVITY_ACCEL * Time.deltaTime;
 		verticalVelocity = Math.Min(verticalVelocity, maxVerticalVelocity);
 		
-		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * gravityAccel * Time.deltaTime * Time.deltaTime;
+		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * GRAVITY_ACCEL * Time.deltaTime * Time.deltaTime;
 		characterController.Move(new Vector3(0, -fallDistance, 0));
 		
-		if(maxVerticalVelocity < FINAL_MAX_VERTICAL_VELOCITY)
-			maxVerticalVelocity += Time.deltaTime;
+		if(verticalVelocity >= maxVerticalVelocity){
+		
+			if(maxVerticalVelocity < FINAL_MAX_VERTICAL_VELOCITY)
+				maxVerticalVelocity += Time.deltaTime * INCREASE_FACTOR;
+		}
 	}
 	
 	public void resetVerticalVelocity() {
 		verticalVelocity = 0;
 	}
 	
-	public void decreaseMaxVerticalVelocity() {
-		maxVerticalVelocity -= -5;
+	public void decreaseVerticalVelocity() {
+		float DEFAULT_DECREASE_AMOUNT = -3;
+		decreaseVerticalVelocity(DEFAULT_DECREASE_AMOUNT);
+	}
+	
+	public void decreaseVerticalVelocity(float decreaseAmount) {
+		if(isAtMaxVelocity())
+			maxVerticalVelocity -= decreaseAmount;
+			
+		verticalVelocity -= decreaseAmount;
+		
+		
 		if(maxVerticalVelocity < INITIAL_MAX_VERTICAL_VELOCITY)
 			maxVerticalVelocity = INITIAL_MAX_VERTICAL_VELOCITY;
+		
+		if(maxVerticalVelocity > FINAL_MAX_VERTICAL_VELOCITY)
+			maxVerticalVelocity = FINAL_MAX_VERTICAL_VELOCITY;
+		
+		if(verticalVelocity < 0)
+			verticalVelocity = 0;
 	}
 	
 	public float getVerticalVelocity(){
 		return verticalVelocity;
+	}
+	
+	private bool isAtMaxVelocity(){
+		float FAULT_TOLERANCE = 0.7f;
+		if(verticalVelocity >= maxVerticalVelocity - FAULT_TOLERANCE)
+			return true;
+		
+		return false;
 	}
 }

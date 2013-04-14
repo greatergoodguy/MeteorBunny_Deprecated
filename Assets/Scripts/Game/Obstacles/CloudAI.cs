@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class CloudAI : MonoBehaviour {
+	public float subtractVelocity = 3.0f;
+	
 	private MeteorController meteorController;
 	
 	void Start (){
@@ -13,8 +15,7 @@ public class CloudAI : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		if(other.tag == "Meteor"){
-			//meteorController.resetVerticalVelocity();
-			meteorController.decreaseMaxVerticalVelocity();
+			meteorController.decreaseVerticalVelocity(subtractVelocity);
 		}
     }
 }
