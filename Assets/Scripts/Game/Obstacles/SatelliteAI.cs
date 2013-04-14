@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class RedBalloonAI : MonoBehaviour {
-	
+public class SatelliteAI : MonoBehaviour {
 	public float FLOAT_RATE = 1.0f;
 	
 	// Use this for initialization
@@ -12,7 +11,7 @@ public class RedBalloonAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 movement = new Vector3 (0, FLOAT_RATE, 0) * Time.deltaTime;
+		Vector3 movement = new Vector3 (FLOAT_RATE, 0, 0) * Time.deltaTime;
 		transform.position += movement;
 	}
 }

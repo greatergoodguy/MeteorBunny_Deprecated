@@ -1,6 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Game/Obstacles/SatelliteActivatorAI.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Game/Controller/MeteorController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/GameCode.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/Obstacles/RedBalloonAI.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Game/Obstacles/SatelliteAI.cs" Line="4" Column="25" />
+      <File FileName="Assets/Scripts/Game/Obstacles/UfoAI.cs" Line="11" Column="2" />
+      <File FileName="Assets/Scripts/Game/Obstacles/RedBalloonActivator.cs" Line="5" Column="1" />
+      <File FileName="Assets/Scripts/Game/Obstacles/SatelliteActivatorAI.cs" Line="21" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
