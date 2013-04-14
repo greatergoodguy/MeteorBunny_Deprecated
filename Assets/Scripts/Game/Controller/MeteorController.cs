@@ -86,7 +86,7 @@ public class MeteorController {
 	}
 	
 	public void decreaseMaxVerticalVelocity() {
-		maxVerticalVelocity -= 5;
+		maxVerticalVelocity -= -5;
 		if(maxVerticalVelocity < INITIAL_MAX_VERTICAL_VELOCITY)
 			maxVerticalVelocity = INITIAL_MAX_VERTICAL_VELOCITY;
 	}
