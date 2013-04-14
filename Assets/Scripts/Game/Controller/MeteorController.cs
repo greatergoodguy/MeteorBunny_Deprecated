@@ -24,7 +24,7 @@ public class MeteorController {
 	private CharacterController characterController;
 	private AudioSource fallingSound;
 	
-	public MeteorController(GameObject meteor, GameObject planet, IInput input, GameConstants gameConstants){
+	public MeteorController(GameObject meteor, IInput input, GameConstants gameConstants){
 		this.planet = planet;
 		this.meteor = meteor;
 		this.input = input;
@@ -89,13 +89,6 @@ public class MeteorController {
 		maxVerticalVelocity -= -5;
 		if(maxVerticalVelocity < INITIAL_MAX_VERTICAL_VELOCITY)
 			maxVerticalVelocity = INITIAL_MAX_VERTICAL_VELOCITY;
-	}
-	
-	public bool isGroundLevel(){
-		if(meteor.transform.position.y < planet.transform.position.y)
-			return true;
-		
-		return false;
 	}
 	
 	public float getVerticalVelocity(){

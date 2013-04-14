@@ -2,11 +2,17 @@ using UnityEngine;
 using System.Collections;
 
 public class RunningState : IGameState {
+	
+	private GameObject meteor;
+	private GameObject planet;
+	
 	private MeteorController meteorController;
 	private GUIText velocityText;
 	
-	public RunningState(MeteorController meteorController, GUIText velocityText){
+	public RunningState(MeteorController meteorController, GameObject meteor, GameObject planet, GUIText velocityText){
 		this.meteorController = meteorController;
+		this.meteor = meteor;
+		this.planet = planet;
 		this.velocityText = velocityText;
 	}
 	
@@ -25,8 +31,8 @@ public class RunningState : IGameState {
 		
 	}
 	
-	public bool isStateFinished() {
-		bool isFinished = meteorController.isGroundLevel();
+	public bool isStateFinished() {		
+		bool isFinished = meteor.transform.position.y < planet.transform.position.y;
 		return isFinished;
 	}
 }

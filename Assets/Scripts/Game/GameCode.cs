@@ -33,12 +33,12 @@ public class GameCode : MonoBehaviour {
 		GameConstants gameConstants = GameObject.Find("GameConstants").GetComponent<GameConstants>();
 		GUIText velocityText = GameObject.Find("TextVelocity").GetComponent<GUIText>();
 		
-		meteorController = new MeteorController(meteor, planet, input, gameConstants);
+		meteorController = new MeteorController(meteor, input, gameConstants);
 		gameStates = new List<IGameState>();
 		gameStateIndex = 0;
 		
 		gameStates.Add(new StartState());
-		gameStates.Add(new RunningState(meteorController, velocityText));
+		gameStates.Add(new RunningState(meteorController, meteor, planet, velocityText));
 		gameStates.Add(new FinishState(finishGameGui));
 		
 		activeState = gameStates[gameStateIndex];
