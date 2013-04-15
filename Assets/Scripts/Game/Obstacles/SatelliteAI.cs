@@ -2,16 +2,26 @@ using UnityEngine;
 using System.Collections;
 
 public class SatelliteAI : MonoBehaviour {
-	public float FLOAT_RATE = 1.0f;
+	public float floatRate = 1.0f;
+	public float subtractVelocity = 2.0f;
 	
-	// Use this for initialization
+	private MeteorController meteorController;
+	
 	void Start () {
-	
+		GameObject code = GameObject.Find("Code");
+		GameCode gameCode = code.GetComponent<GameCode>();
+		
+		meteorController = gameCode.getMeteorController();
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		Vector3 movement = new Vector3 (FLOAT_RATE, 0, 0) * Time.deltaTime;
+		Vector3 movement = new Vector3 (floatRate, 0, 0) * Time.deltaTime;
 		transform.position += movement;
 	}
+	
+	void OnTriggerEnter(Collider other) {
+		if(other.tag == "Meteor"){
+			meteorController.decreaseVerticalVelocity(subtractVelocity);
+		}
+    }
 }
