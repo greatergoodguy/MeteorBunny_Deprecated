@@ -4,18 +4,19 @@ using System.Collections.Generic;
 	
 public class GameCode : MonoBehaviour {
 	
+	private GameStateManager gameStateManager = GameStateManager.getSingleton();
+	
 	public GameObject meteor;
 	public GameObject planet;
 	
 	private MeteorController meteorController;
 	
 	private IGameState activeState;
+	private IInput input;
 	
 	void Awake () {
 		DebugUtils.Assert(meteor != null);
 		DebugUtils.Assert(planet != null);
-		
-		IInput input;
 		
 		# if UNITY_EDITOR
 		input = new KeyboardInput();
@@ -27,11 +28,10 @@ public class GameCode : MonoBehaviour {
 		
 		FinishGameGui finishGameGui = GameObject.Find("FinishGameGui").GetComponent<FinishGameGui>();
 		MainMenuGui mainMenuGui = GameObject.Find("MainMenuGui").GetComponent<MainMenuGui>();
+		PauseGui pauseGui = GameObject.Find("PauseGui").GetComponent<PauseGui>();
 		
 		GameConstants gameConstants = GameObject.Find("GameConstants").GetComponent<GameConstants>();
 		GUIText velocityText = GameObject.Find("TextVelocity").GetComponent<GUIText>();
-		
-		GameStateManager gameStateManager = GameStateManager.getSingleton();
 	
 		meteorController = new MeteorController(meteor, input, gameConstants);
 		
@@ -39,6 +39,7 @@ public class GameCode : MonoBehaviour {
 		gameStateManager.startState = new StartState();
 		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityText);
 		gameStateManager.finishState = new FinishState(finishGameGui);
+		gameStateManager.pauseState = new PauseState(pauseGui);
 		
 		activeState = gameStateManager.mainMenuState;	
 		activeState.enterState();
@@ -51,6 +52,12 @@ public class GameCode : MonoBehaviour {
 		
 		if(activeState.isStateFinished()){
 			changeGameState(activeState.getNextGameState());
+		}
+		
+		if(input.isBackButtonDown()){
+			if(activeState != gameStateManager.pauseState){
+				changeGameState(gameStateManager.pauseState);	  
+			}
 		}
 	}
 	
@@ -66,4 +73,5 @@ public class GameCode : MonoBehaviour {
 		
 		return meteorController;
 	}
+	
 }

@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class MainMenuGui : MonoBehaviour {
-
+public class PauseGui : MonoBehaviour {
+	
 	public Texture bgTexture;
 	public Texture playTexture;
 	public Texture quitTexture;
@@ -43,7 +43,7 @@ public class MainMenuGui : MonoBehaviour {
 		GUILayout.EndArea();
 	}
 	
-	public bool isPlayButtonPressed(){
+	public bool isResumeButtonPressed(){
 		return isFirstButtonPressed_b;
 	}
 	

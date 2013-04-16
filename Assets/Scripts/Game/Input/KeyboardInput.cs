@@ -6,4 +6,12 @@ public class KeyboardInput : IInput {
 		float horAxis = Input.GetAxis("Horizontal");
 		return horAxis;
 	}
+	
+	public bool isBackButtonDown(){	
+		if (Input.GetKey(KeyCode.Escape)){
+        	return true;
+    	}
+		
+		return false;
+	}
 }

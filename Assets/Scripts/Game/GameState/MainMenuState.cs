@@ -11,6 +11,7 @@ public class MainMenuState : IGameState {
 	
 	public void enterState() {
 		mainMenuGui.enabled = true;
+		mainMenuGui.reset();
 	}
 	
 	public void update(){}
@@ -24,16 +25,12 @@ public class MainMenuState : IGameState {
 	public IGameState getNextGameState(){
 		GameStateManager gameStateManager = GameStateManager.getSingleton();
 		
-		if(mainMenuGui.isFirstButtonPressed()){
+		if(mainMenuGui.isPlayButtonPressed())
 			return gameStateManager.startState;
-		}
-		else if(mainMenuGui.isSecondButtonPressed()){
+		else if(mainMenuGui.isQuitButtonPressed())
 			Application.Quit();
-		}
-		else{
+		else
 			return gameStateManager.startState;	
-		}
-		
 		
 		return gameStateManager.startState;
 	}

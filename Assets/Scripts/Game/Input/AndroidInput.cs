@@ -32,4 +32,12 @@ public class AndroidInput : IInput {
 		//return horAxis;
 		return accel.x;
 	}
+	
+	public bool isBackButtonDown(){
+		if (Input.GetKey(KeyCode.Escape)){
+        	return true;
+    	}
+		
+		return false;
+	}
 }
