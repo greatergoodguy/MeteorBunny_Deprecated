@@ -16,9 +16,7 @@ public class RunningState : IGameState {
 		this.velocityText = velocityText;
 	}
 	
-	public void enterState () {
-	
-	}
+	public void enterState () {}
 	
 	public void update () {
 		meteorController.ApplyController();
@@ -27,12 +25,16 @@ public class RunningState : IGameState {
 		velocityText.text = "Velocity: " + meteorController.getVerticalVelocity();
 	}
 	
-	public void exitState () {
-		
-	}
+	public void exitState () {}
 	
 	public bool isStateFinished() {		
 		bool isFinished = meteor.transform.position.y < planet.transform.position.y;
 		return isFinished;
+	}
+	
+	public IGameState getNextGameState(){
+		GameStateManager gameStateManager = GameStateManager.getSingleton();
+		
+		return gameStateManager.finishState;
 	}
 }

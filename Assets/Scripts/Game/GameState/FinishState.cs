@@ -7,21 +7,21 @@ public class FinishState : IGameState {
 	
 	public FinishState(FinishGameGui finishGameGui){
 		this.finishGameGui = finishGameGui;
+		finishGameGui.enabled = false;
 	}
 	
-	public void enterState () {
+	public void enterState() {
 		finishGameGui.enabled = true;
 	}
 	
-	public void update () {
+	public void update(){}
+	public void exitState(){}
 	
-	}
+	public bool isStateFinished() 	{return false;}
 	
-	public void exitState () {
+	public IGameState getNextGameState(){
+		GameStateManager gameStateManager = GameStateManager.getSingleton();
 		
-	}
-	
-	public bool isStateFinished() {
-		return false;
+		return gameStateManager.startState;
 	}
 }

@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-interface IGameState {
+public interface IGameState {
 	void enterState();
 	void update();
 	void exitState();
 	
 	bool isStateFinished();
+	IGameState getNextGameState();
 }

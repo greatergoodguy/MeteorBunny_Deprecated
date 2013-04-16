@@ -9,8 +9,6 @@ public class GameCode : MonoBehaviour {
 	
 	private MeteorController meteorController;
 	
-	private List<IGameState> gameStates;
-	private int gameStateIndex;
 	private IGameState activeState;
 	
 	void Awake () {
@@ -28,32 +26,31 @@ public class GameCode : MonoBehaviour {
 		# endif
 		
 		FinishGameGui finishGameGui = GameObject.Find("FinishGameGui").GetComponent<FinishGameGui>();
-		finishGameGui.enabled = false;
+		MainMenuGui mainMenuGui = GameObject.Find("MainMenuGui").GetComponent<MainMenuGui>();
 		
 		GameConstants gameConstants = GameObject.Find("GameConstants").GetComponent<GameConstants>();
 		GUIText velocityText = GameObject.Find("TextVelocity").GetComponent<GUIText>();
 		
+		GameStateManager gameStateManager = GameStateManager.getSingleton();
+	
 		meteorController = new MeteorController(meteor, input, gameConstants);
-		gameStates = new List<IGameState>();
-		gameStateIndex = 0;
 		
-		gameStates.Add(new StartState());
-		gameStates.Add(new RunningState(meteorController, meteor, planet, velocityText));
-		gameStates.Add(new FinishState(finishGameGui));
+		gameStateManager.mainMenuState = new MainMenuState(mainMenuGui);
+		gameStateManager.startState = new StartState();
+		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityText);
+		gameStateManager.finishState = new FinishState(finishGameGui);
 		
-		activeState = gameStates[gameStateIndex];
-		
+		activeState = gameStateManager.mainMenuState;	
 		activeState.enterState();
 	}
 	
-	void Start () {
-	}
+	void Start () {}
 	
 	void Update () {
 		activeState.update();
 		
 		if(activeState.isStateFinished()){
-			advaceGameStateList();
+			changeGameState(activeState.getNextGameState());
 		}
 	}
 	
@@ -61,22 +58,6 @@ public class GameCode : MonoBehaviour {
 		activeState.exitState();
 		
 		activeState = newGameState;
-		activeState.enterState();
-	}
-	
-		
-	void advaceGameStateList(){
-		activeState.exitState();
-		
-		if(gameStateIndex < gameStates.Count){
-			gameStateIndex++;
-		}
-		else{
-			gameStateIndex = gameStates.Count - 1;
-		}
-		
-		
-		activeState = gameStates[gameStateIndex];
 		activeState.enterState();
 	}
 	
