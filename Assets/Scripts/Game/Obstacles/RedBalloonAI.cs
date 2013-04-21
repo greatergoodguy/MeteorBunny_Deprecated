@@ -1,18 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-public class RedBalloonAI : MonoBehaviour {
+public class RedBalloonAI : MonoBehaviour, IObstacleAI {
 	
 	public float floatRate = 1.0f;
 	public float subtractVelocity = 2.0f;
 	
 	private MeteorController meteorController;
+	private tk2dAnimatedSprite balloonAnimSprite;
+	
+	private Vector3 startPos;
 	
 	void Start () {
 		GameObject code = GameObject.Find("Code");
 		GameCode gameCode = code.GetComponent<GameCode>();
 		
 		meteorController = gameCode.getMeteorController();
+		balloonAnimSprite = GetComponent<tk2dAnimatedSprite>();
 	}
 	
 	void Update () {
@@ -23,6 +27,12 @@ public class RedBalloonAI : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if(other.tag == "Meteor"){
 			meteorController.decreaseVerticalVelocity(subtractVelocity);
+			balloonAnimSprite.Play();
+			audio.Play();
 		}
     }
+	
+	public void reset(){
+		balloonAnimSprite.StopAndResetFrame();
+	}
 }

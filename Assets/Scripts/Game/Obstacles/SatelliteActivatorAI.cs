@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SatelliteActivatorAI : MonoBehaviour {
+public class SatelliteActivatorAI : MonoBehaviour, IObstacleAI {
 	
 	private SatelliteAI satelliteAI;
 	
@@ -9,7 +9,6 @@ public class SatelliteActivatorAI : MonoBehaviour {
 	void Start () {
 		satelliteAI = transform.parent.Find("SatelliteAnim").GetComponent<SatelliteAI>();
 		satelliteAI.enabled = false;
-		
 	}
 	
 	void OnTriggerEnter(Collider other) {
@@ -17,4 +16,8 @@ public class SatelliteActivatorAI : MonoBehaviour {
 			satelliteAI.enabled = true;;
 		}
     }
+	
+	public void reset(){
+		satelliteAI.enabled = false;
+	}
 }

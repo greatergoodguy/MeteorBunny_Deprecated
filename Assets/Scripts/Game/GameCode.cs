@@ -32,10 +32,13 @@ public class GameCode : MonoBehaviour {
 		
 		GameConstants gameConstants = GameObject.Find("GameConstants").GetComponent<GameConstants>();
 		GUIText velocityText = GameObject.Find("TextVelocity").GetComponent<GUIText>();
+		
+		GameObject challenges = GameObject.Find("Challenges");
 	
 		meteorController = new MeteorController(meteor, input, gameConstants);
 		
 		gameStateManager.mainMenuState = new MainMenuState(mainMenuGui);
+		gameStateManager.setupState = new SetupState(challenges);
 		gameStateManager.startState = new StartState();
 		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityText);
 		gameStateManager.finishState = new FinishState(finishGameGui);
@@ -55,7 +58,7 @@ public class GameCode : MonoBehaviour {
 		}
 		
 		if(input.isBackButtonDown()){
-			if(activeState != gameStateManager.pauseState){
+			if(activeState == gameStateManager.runningState){
 				changeGameState(gameStateManager.pauseState);	  
 			}
 		}

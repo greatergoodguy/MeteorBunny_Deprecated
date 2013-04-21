@@ -4,6 +4,7 @@ using System.Collections;
 public class GameStateManager{
 	private static GameStateManager singleton;
 	
+	public IGameState setupState;
 	public IGameState startState;
 	public IGameState runningState;
 	public IGameState finishState;

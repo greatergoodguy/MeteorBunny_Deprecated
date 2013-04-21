@@ -11,26 +11,4 @@ public class MeteorOnTriggerEnter : MonoBehaviour {
 		
 		meteorController = gameCode.getMeteorController();
 	}
-	
-	void OnTriggerEnter(Collider other) {
-		
-		/*
-		if(other.tag == "Cloud"){
-			Debug.Log ("Enter Cloud");
-			meteorController.resetVerticalVelocity();
-		}
-		*/
-		
-		if(other.tag == "Balloon"){
-			Debug.Log ("Enter Balloon");
-			//meteorController.resetVerticalVelocity();
-			
-			tk2dAnimatedSprite balloonAnimSprite = other.GetComponent<tk2dAnimatedSprite>();
-			balloonAnimSprite.Play();
-			
-			AudioSource popSFX = other.audio;
-			popSFX.Play();
-			
-		}
-    }
 }

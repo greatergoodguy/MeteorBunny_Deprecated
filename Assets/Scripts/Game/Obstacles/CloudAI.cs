@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CloudAI : MonoBehaviour {
+public class CloudAI : MonoBehaviour, IObstacleAI {
 	public float subtractVelocity = 3.0f;
 	
 	private MeteorController meteorController;
@@ -18,4 +18,6 @@ public class CloudAI : MonoBehaviour {
 			meteorController.decreaseVerticalVelocity(subtractVelocity);
 		}
     }
+	
+	public void reset(){}
 }

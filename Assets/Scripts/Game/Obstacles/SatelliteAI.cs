@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class SatelliteAI : MonoBehaviour {
+public class SatelliteAI : MonoBehaviour, IObstacleAI {
 	public float floatRate = 1.0f;
 	public float subtractVelocity = 2.0f;
 	
@@ -24,4 +24,6 @@ public class SatelliteAI : MonoBehaviour {
 			meteorController.decreaseVerticalVelocity(subtractVelocity);
 		}
     }
+	
+	public void reset(){}
 }

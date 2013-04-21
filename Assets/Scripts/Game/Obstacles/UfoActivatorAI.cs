@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class UfoActivatorAI : MonoBehaviour {
+public class UfoActivatorAI : MonoBehaviour, IObstacleAI {
 	
 	private UfoAI ufoAI;
 	
@@ -17,4 +17,8 @@ public class UfoActivatorAI : MonoBehaviour {
 			ufoAI.enabled = true;;
 		}
     }
+	
+	public void reset(){
+		ufoAI.enabled = false;
+	}
 }

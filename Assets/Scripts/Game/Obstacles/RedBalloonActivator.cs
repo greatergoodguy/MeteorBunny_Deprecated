@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class RedBalloonActivator : MonoBehaviour {
+public class RedBalloonActivator : MonoBehaviour, IObstacleAI {
 	
 	private RedBalloonAI redBalloonAI;
 	
@@ -14,7 +14,11 @@ public class RedBalloonActivator : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		if(other.tag == "Meteor"){
-			redBalloonAI.enabled = true;;
+			redBalloonAI.enabled = true;
 		}
     }
+	
+	public void reset(){
+		redBalloonAI.enabled = false;
+	}
 }
