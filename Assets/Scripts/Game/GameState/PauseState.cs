@@ -12,12 +12,15 @@ public class PauseState : IGameState {
 	public void enterState() {
 		pauseGui.enabled = true;
 		pauseGui.reset ();
+		
+		Time.timeScale = 0;
 	}
 	
 	public void update(){}
 	
 	public void exitState(){
 		pauseGui.enabled = false;
+		Time.timeScale = 1;
 	}
 	
 	public bool isStateFinished() 	{return pauseGui.isReady();}
