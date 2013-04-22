@@ -9,6 +9,8 @@ using UnityEngine;
 using System;
 
 public class MeteorController {
+	private Vector3 meteorStartPos;
+	
 	private float FINAL_MAX_VERTICAL_VELOCITY;
 	private float INITIAL_MAX_VERTICAL_VELOCITY;
 	private float INCREASE_FACTOR;
@@ -32,6 +34,8 @@ public class MeteorController {
 		
 		this.characterController = meteor.GetComponent<CharacterController>();
 		this.fallingSound = meteor.audio;
+		
+		meteorStartPos = meteor.transform.position;
 		
 		FINAL_MAX_VERTICAL_VELOCITY		= gameConstants.finalMaxVerticalVelocity;
 		INITIAL_MAX_VERTICAL_VELOCITY 	= gameConstants.initialMaxVerticalVelocity;
@@ -114,6 +118,11 @@ public class MeteorController {
 	
 	public float getVerticalVelocity(){
 		return verticalVelocity;
+	}
+	
+	public void reset(){
+		resetVerticalVelocity();
+		meteor.transform.position = meteorStartPos;
 	}
 	
 	private bool isAtMaxVelocity(){

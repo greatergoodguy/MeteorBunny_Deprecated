@@ -26,12 +26,10 @@ public class MainMenuState : IGameState {
 		GameStateManager gameStateManager = GameStateManager.getSingleton();
 		
 		if(mainMenuGui.isPlayButtonPressed())
-			return gameStateManager.startState;
+			return gameStateManager.setupState;
 		else if(mainMenuGui.isQuitButtonPressed())
 			Application.Quit();
-		else
-			return gameStateManager.startState;	
 		
-		return gameStateManager.startState;
+		return gameStateManager.setupState;	
 	}
 }

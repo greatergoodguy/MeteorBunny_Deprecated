@@ -8,11 +8,15 @@ public class UfoAI : MonoBehaviour, IObstacleAI {
 	
 	private MeteorController meteorController;
 	
+	private Vector3 startPos;
+	
 	void Start () {
 		GameObject code = GameObject.Find("Code");
 		GameCode gameCode = code.GetComponent<GameCode>();
 		
 		meteorController = gameCode.getMeteorController();
+		
+		startPos = transform.localPosition;
 	}
 	
 	void Update () {
@@ -26,5 +30,7 @@ public class UfoAI : MonoBehaviour, IObstacleAI {
 		}
     }
 	
-	public void reset(){}
+	public void reset(){
+		transform.localPosition = startPos;
+	}
 }

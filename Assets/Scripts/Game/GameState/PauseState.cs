@@ -28,8 +28,8 @@ public class PauseState : IGameState {
 		if(pauseGui.isResumeButtonPressed())
 			return gameStateManager.runningState;
 		else if(pauseGui.isQuitButtonPressed())
-			return gameStateManager.mainMenuState;
+			return gameStateManager.setupState;
 		else
-			return gameStateManager.mainMenuState;	
+			return gameStateManager.setupState;	
 	}
 }

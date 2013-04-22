@@ -38,7 +38,7 @@ public class GameCode : MonoBehaviour {
 		meteorController = new MeteorController(meteor, input, gameConstants);
 		
 		gameStateManager.mainMenuState = new MainMenuState(mainMenuGui);
-		gameStateManager.setupState = new SetupState(challenges);
+		gameStateManager.setupState = new SetupState(challenges, meteorController);
 		gameStateManager.startState = new StartState();
 		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityText);
 		gameStateManager.finishState = new FinishState(finishGameGui);
@@ -46,6 +46,8 @@ public class GameCode : MonoBehaviour {
 		
 		activeState = gameStateManager.mainMenuState;	
 		activeState.enterState();
+		
+		print (activeState.GetType().Name);
 	}
 	
 	void Start () {}
@@ -69,6 +71,8 @@ public class GameCode : MonoBehaviour {
 		
 		activeState = newGameState;
 		activeState.enterState();
+		
+		print (activeState.GetType().Name);
 	}
 	
 	public MeteorController getMeteorController(){

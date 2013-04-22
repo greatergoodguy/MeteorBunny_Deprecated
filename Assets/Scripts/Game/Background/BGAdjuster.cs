@@ -30,10 +30,10 @@ public class BGAdjuster : MonoBehaviour {
 		setVectorY(bg4, bg3.position.y - (bg3_halfHeight + bg4_halfHeight));
 		setVectorY(bg5, bg4.position.y - (bg4_halfHeight + bg5_halfHeight));
 		
-		Debug.Log ("bg2.position: " + bg2.position.y);
-		Debug.Log ("bg3.position: " + bg3.position.y);
-		Debug.Log ("bg4.position: " + bg4.position.y);
-		Debug.Log ("bg5.position: " + bg5.position.y);
+		//Debug.Log ("bg2.position: " + bg2.position.y);
+		//Debug.Log ("bg3.position: " + bg3.position.y);
+		//Debug.Log ("bg4.position: " + bg4.position.y);
+		//Debug.Log ("bg5.position: " + bg5.position.y);
 	}
 	
 	// Update is called once per frame

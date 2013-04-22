@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class RedBalloonActivator : MonoBehaviour, IObstacleAI {
+public class RedBalloonActivatorAI : MonoBehaviour, IObstacleAI {
 	
 	private RedBalloonAI redBalloonAI;
 	

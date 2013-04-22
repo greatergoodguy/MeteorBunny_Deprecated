@@ -17,6 +17,8 @@ public class RedBalloonAI : MonoBehaviour, IObstacleAI {
 		
 		meteorController = gameCode.getMeteorController();
 		balloonAnimSprite = GetComponent<tk2dAnimatedSprite>();
+		
+		startPos = transform.localPosition;
 	}
 	
 	void Update () {
@@ -34,5 +36,6 @@ public class RedBalloonAI : MonoBehaviour, IObstacleAI {
 	
 	public void reset(){
 		balloonAnimSprite.StopAndResetFrame();
+		transform.localPosition = startPos;
 	}
 }
