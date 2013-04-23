@@ -54,19 +54,22 @@ public class MeteorController {
 	}
 			
 	public void ApplyController() {
-		const float SCALE_FACTOR = (1 / 5.0f); 
-		const float MIN_PITCH = 0.4f;
-		const float MAX_PITCH = 2.0f;
+		const float HORIZONTAL_MOVEMENT_MULTIPLIER = 20f;
 		
 		float horAxis = input.getHorizontalAxis();
 		float horDistance = horAxis * horizontalVelocity * Time.deltaTime;
+		horDistance = horDistance * HORIZONTAL_MOVEMENT_MULTIPLIER;
 		characterController.Move(new Vector3(horDistance, 0, 0));
 		
 		/*
 		 * 	Code regarding sound. This will be 
 		 * 	refactored if the sound logic gets more complicated.
 		 */ 
-		fallingSound.pitch += horDistance * SCALE_FACTOR;
+		const float SFX_SCALE_FACTOR = (1 / 5.0f); 
+		const float MIN_PITCH = 0.4f;
+		const float MAX_PITCH = 2.0f;
+		
+		fallingSound.pitch += horDistance * SFX_SCALE_FACTOR;
 		if(fallingSound.pitch > MAX_PITCH){
 			fallingSound.pitch = MAX_PITCH;
 		}
@@ -77,11 +80,14 @@ public class MeteorController {
 	}
 		
 	public void ApplyGravity() {
+		const float GRAVITY_MULTIPLIER = 20f;
+		
 		verticalVelocity = verticalVelocity + GRAVITY_ACCEL * Time.deltaTime;
 		verticalVelocity = Math.Min(verticalVelocity, maxVerticalVelocity);
 		
 		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * GRAVITY_ACCEL * Time.deltaTime * Time.deltaTime;
-		characterController.Move(new Vector3(0, -fallDistance, 0));
+		fallDistance = -fallDistance * GRAVITY_MULTIPLIER;
+			characterController.Move(new Vector3(0, fallDistance, 0));
 		
 		if(verticalVelocity >= maxVerticalVelocity){
 		

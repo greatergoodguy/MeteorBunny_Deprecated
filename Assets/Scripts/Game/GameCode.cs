@@ -32,6 +32,7 @@ public class GameCode : MonoBehaviour {
 		
 		GameConstants gameConstants = GameObject.Find("GameConstants").GetComponent<GameConstants>();
 		GUIText velocityText = GameObject.Find("TextVelocity").GetComponent<GUIText>();
+		tk2dTextMesh velocityTextMesh = GameObject.Find("Main Camera/VelocityText").GetComponent<tk2dTextMesh>();
 		
 		GameObject challenges = GameObject.Find("Challenges");
 	
@@ -40,7 +41,7 @@ public class GameCode : MonoBehaviour {
 		gameStateManager.mainMenuState = new MainMenuState(mainMenuGui);
 		gameStateManager.setupState = new SetupState(challenges, meteorController);
 		gameStateManager.startState = new StartState();
-		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityText);
+		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityTextMesh);
 		gameStateManager.finishState = new FinishState(finishGameGui);
 		gameStateManager.pauseState = new PauseState(pauseGui);
 		

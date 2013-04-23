@@ -7,13 +7,13 @@ public class RunningState : IGameState {
 	private GameObject planet;
 	
 	private MeteorController meteorController;
-	private GUIText velocityText;
+	private tk2dTextMesh velocityTextMesh;
 	
-	public RunningState(MeteorController meteorController, GameObject meteor, GameObject planet, GUIText velocityText){
+	public RunningState(MeteorController meteorController, GameObject meteor, GameObject planet, tk2dTextMesh velocityTextMesh){
 		this.meteorController = meteorController;
 		this.meteor = meteor;
 		this.planet = planet;
-		this.velocityText = velocityText;
+		this.velocityTextMesh = velocityTextMesh;
 	}
 	
 	public void enterState () {}
@@ -22,7 +22,8 @@ public class RunningState : IGameState {
 		meteorController.ApplyController();
 		meteorController.ApplyGravity();
 		
-		velocityText.text = "Velocity: " + meteorController.getVerticalVelocity();
+		velocityTextMesh.text = "Velocity: " + meteorController.getVerticalVelocity();
+		velocityTextMesh.Commit();
 	}
 	
 	public void exitState () {}
