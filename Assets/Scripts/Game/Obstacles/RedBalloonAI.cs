@@ -22,7 +22,9 @@ public class RedBalloonAI : MonoBehaviour, IObstacleAI {
 	}
 	
 	void Update () {
-		Vector3 movement = new Vector3 (0, floatRate, 0) * Time.deltaTime;
+		const float MOVEMENT_MULTIPLIER = 70f;
+		Vector3 movement = new Vector3 (0, floatRate, 0) * Time.deltaTime * MOVEMENT_MULTIPLIER;
+		
 		transform.position += movement;
 	}
 	

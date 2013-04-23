@@ -21,8 +21,7 @@ public class UfoAI : MonoBehaviour, IObstacleAI {
 	
 	void Update () {
 		const float MOVEMENT_MULTIPLIER = 70f;
-		Vector3 movement = new Vector3 (-floatRate, 0, 0) * Time.deltaTime;
-		movement *= MOVEMENT_MULTIPLIER;
+		Vector3 movement = new Vector3 (-floatRate, 0, 0) * Time.deltaTime * MOVEMENT_MULTIPLIER;
 		
 		transform.position += movement;
 	}
