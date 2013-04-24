@@ -2,22 +2,25 @@ using UnityEngine;
 using System.Collections;
 
 public class MainMenuState : IGameState {
+	private GameObject mainMenuGuiGO;
 	private MainMenuGui mainMenuGui;
 	
-	public MainMenuState(MainMenuGui mainMenuGui){
-		this.mainMenuGui = mainMenuGui;
-		mainMenuGui.enabled = false;
+	public MainMenuState(GameObject mainMenuGuiGO){
+		this.mainMenuGuiGO = mainMenuGuiGO;
+		mainMenuGuiGO.SetActive(false);
+		
+		mainMenuGui = mainMenuGuiGO.GetComponent<MainMenuGui>();
 	}
 	
 	public void enterState() {
-		mainMenuGui.enabled = true;
+		mainMenuGuiGO.SetActive(true);
 		mainMenuGui.reset();
 	}
 	
 	public void update(){}
 	
 	public void exitState(){
-		mainMenuGui.enabled = false;
+		mainMenuGuiGO.SetActive(false);
 	}
 	
 	public bool isStateFinished() 	{return mainMenuGui.isReady();}

@@ -27,22 +27,23 @@ public class GameCode : MonoBehaviour {
 		# endif
 		
 		FinishGameGui finishGameGui = GameObject.Find("FinishGameGui").GetComponent<FinishGameGui>();
-		MainMenuGui mainMenuGui = GameObject.Find("MainMenuGui").GetComponent<MainMenuGui>();
+		GameObject mainMenuGui = GameObject.Find("Main Camera/MainMenuGui");
 		PauseGui pauseGui = GameObject.Find("PauseGui").GetComponent<PauseGui>();
 		
 		GameConstantsSelector gameConstantsSelector = GameObject.Find("GameConstantsSelector").GetComponent<GameConstantsSelector>();
 		GameConstants gameConstants = gameConstantsSelector.getGameConstants();
-		GUIText velocityText = GameObject.Find("TextVelocity").GetComponent<GUIText>();
+		GameObject velocityTextMeshGO = GameObject.Find ("Main Camera/VelocityText");
 		tk2dTextMesh velocityTextMesh = GameObject.Find("Main Camera/VelocityText").GetComponent<tk2dTextMesh>();
+		velocityTextMeshGO.SetActive(false);
 		
 		GameObject challenges = GameObject.Find("Challenges");
 	
 		meteorController = new MeteorController(meteor, input, gameConstants);
 		
 		gameStateManager.mainMenuState = new MainMenuState(mainMenuGui);
-		gameStateManager.setupState = new SetupState(challenges, meteorController);
+		gameStateManager.setupState = new SetupState(challenges, meteorController, velocityTextMeshGO);
 		gameStateManager.startState = new StartState();
-		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityTextMesh);
+		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityTextMesh, velocityTextMeshGO);
 		gameStateManager.finishState = new FinishState(finishGameGui);
 		gameStateManager.pauseState = new PauseState(pauseGui);
 		

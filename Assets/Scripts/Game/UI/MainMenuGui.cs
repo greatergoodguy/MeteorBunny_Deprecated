@@ -2,62 +2,47 @@ using UnityEngine;
 using System.Collections;
 
 public class MainMenuGui : MonoBehaviour {
-
-	public Texture bgTexture;
-	public Texture playTexture;
-	public Texture quitTexture;
-
-	private int menuWidth = 700;
-	private int menuHeight = 1200;
-
-	private int buttonWidth = 400;
-	private int buttonHeight = 200;
-	private int spacing = 20;
 	
-	private bool isFirstButtonPressed_b = false;
-	private bool isSecondButtonPressed_b = false;
-	private bool isReady_b = false;
+	private bool isButton1Down;
+	private bool isButton2Down;
+	private bool isReady_;
 	
-	void Start() {
-		reset();
+	void Start () {
+		isButton1Down = false;
+		isButton2Down = false;
+		isReady_ = false;
+	}
+	void Update () {}
+	
+	/*
+	 * 	These are the messages that can activated
+	 *  using 2dtoolkit's buttons
+	 */ 
+	public void pressButton1(){
+		isButton1Down = !isButton1Down;
+		isReady_ = true;
 	}
 	
-	void OnGUI() {
-		GUILayout.BeginArea(new Rect(0, 0, menuWidth, menuHeight), bgTexture);
-		if(GUILayout.Button(playTexture, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight))){
-			//Application.LoadLevel("Game");
-			
-			isFirstButtonPressed_b = true;
-			isSecondButtonPressed_b = false;
-			isReady_b = true;
-		}
-		GUILayout.Space(spacing);
-	
-		if(GUILayout.Button(quitTexture, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight))){
-			//Application.Quit();
-			
-			isFirstButtonPressed_b = false;
-			isSecondButtonPressed_b = true;
-			isReady_b = true;
-		}
-		GUILayout.EndArea();
+	public void pressButton2(){
+		isButton2Down = !isButton2Down;
+		isReady_ = true;
 	}
 	
 	public bool isPlayButtonPressed(){
-		return isFirstButtonPressed_b;
+		return isButton1Down;
 	}
 	
 	public bool isQuitButtonPressed(){
-		return isSecondButtonPressed_b;
+		return isButton2Down;
 	}
 	
 	public bool isReady(){
-		return isReady_b;
+		return isReady_;
 	}
 	
 	public void reset(){
-		isFirstButtonPressed_b = false;
-		isSecondButtonPressed_b = false;
-		isReady_b = false;
+		isButton1Down = false;
+		isButton2Down = false;
+		isReady_ = false;
 	}
 }

@@ -8,12 +8,14 @@ public class RunningState : IGameState {
 	
 	private MeteorController meteorController;
 	private tk2dTextMesh velocityTextMesh;
+	private GameObject velocityTextMeshGO;
 	
-	public RunningState(MeteorController meteorController, GameObject meteor, GameObject planet, tk2dTextMesh velocityTextMesh){
+	public RunningState(MeteorController meteorController, GameObject meteor, GameObject planet, tk2dTextMesh velocityTextMesh, GameObject velocityTextMeshGO){
 		this.meteorController = meteorController;
 		this.meteor = meteor;
 		this.planet = planet;
 		this.velocityTextMesh = velocityTextMesh;
+		this.velocityTextMeshGO = velocityTextMeshGO;
 	}
 	
 	public void enterState () {}
@@ -26,7 +28,10 @@ public class RunningState : IGameState {
 		velocityTextMesh.Commit();
 	}
 	
-	public void exitState () {}
+	public void exitState () {
+		velocityTextMesh.enabled = false;
+		velocityTextMeshGO.SetActive(false);
+	}
 	
 	public bool isStateFinished() {		
 		bool isFinished = meteor.transform.position.y < planet.transform.position.y;

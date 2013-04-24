@@ -6,12 +6,15 @@ public class SetupState : IGameState {
 	
 	List<IObstacleAI> obstacles;
 	MeteorController meteorController;
+	GameObject velocityTextMeshGO;
 	
-	public SetupState(GameObject challenges, MeteorController meteorController){
+	public SetupState(GameObject challenges, MeteorController meteorController, GameObject velocityTextMeshGO){
 		DebugUtils.Assert(challenges != null);
 		
 		this.meteorController = meteorController;
 		obstacles = new List<IObstacleAI>();
+		
+		this.velocityTextMeshGO = velocityTextMeshGO;
 		
 		GameObject[] obstaclesGOs = GameObject.FindGameObjectsWithTag("ObstacleAI");
 		foreach (GameObject obstacleGO in obstaclesGOs){
@@ -35,6 +38,7 @@ public class SetupState : IGameState {
 			obstacleAI.reset();
 		
 		meteorController.reset();
+		velocityTextMeshGO.SetActive(true);
 	}
 	
 	public void update () {
