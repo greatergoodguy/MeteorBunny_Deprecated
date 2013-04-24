@@ -18,7 +18,9 @@ public class RunningState : IGameState {
 		this.velocityTextMeshGO = velocityTextMeshGO;
 	}
 	
-	public void enterState () {}
+	public void enterState () {
+		velocityTextMeshGO.SetActive(true);
+	}
 	
 	public void update () {
 		meteorController.ApplyController();

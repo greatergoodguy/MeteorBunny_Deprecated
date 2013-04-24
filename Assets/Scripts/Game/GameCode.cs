@@ -27,8 +27,9 @@ public class GameCode : MonoBehaviour {
 		# endif
 		
 		FinishGameGui finishGameGui = GameObject.Find("FinishGameGui").GetComponent<FinishGameGui>();
-		GameObject mainMenuGui = GameObject.Find("Main Camera/MainMenuGui");
-		PauseGui pauseGui = GameObject.Find("PauseGui").GetComponent<PauseGui>();
+		GameObject mainMenuGuiGO = GameObject.Find("Main Camera/MainMenuGui");
+		//PauseGui pauseGui = GameObject.Find("PauseGui").GetComponent<PauseGui>();
+		GameObject pauseGuiGO = GameObject.Find("Main Camera/PauseGui");
 		
 		GameConstantsSelector gameConstantsSelector = GameObject.Find("GameConstantsSelector").GetComponent<GameConstantsSelector>();
 		GameConstants gameConstants = gameConstantsSelector.getGameConstants();
@@ -40,12 +41,12 @@ public class GameCode : MonoBehaviour {
 	
 		meteorController = new MeteorController(meteor, input, gameConstants);
 		
-		gameStateManager.mainMenuState = new MainMenuState(mainMenuGui);
+		gameStateManager.mainMenuState = new MainMenuState(mainMenuGuiGO);
 		gameStateManager.setupState = new SetupState(challenges, meteorController, velocityTextMeshGO);
 		gameStateManager.startState = new StartState();
 		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityTextMesh, velocityTextMeshGO);
 		gameStateManager.finishState = new FinishState(finishGameGui);
-		gameStateManager.pauseState = new PauseState(pauseGui);
+		gameStateManager.pauseState = new PauseState(pauseGuiGO);
 		
 		activeState = gameStateManager.mainMenuState;	
 		activeState.enterState();

@@ -8,16 +8,11 @@ public class MainMenuGui : MonoBehaviour {
 	private bool isReady_;
 	
 	void Start () {
-		isButton1Down = false;
-		isButton2Down = false;
-		isReady_ = false;
+		reset ();
 	}
-	void Update () {}
 	
-	/*
-	 * 	These are the messages that can activated
-	 *  using 2dtoolkit's buttons
-	 */ 
+	void Update () {}
+	 
 	public void pressButton1(){
 		isButton1Down = !isButton1Down;
 		isReady_ = true;
