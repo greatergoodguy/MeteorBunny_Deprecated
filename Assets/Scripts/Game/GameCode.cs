@@ -30,7 +30,8 @@ public class GameCode : MonoBehaviour {
 		MainMenuGui mainMenuGui = GameObject.Find("MainMenuGui").GetComponent<MainMenuGui>();
 		PauseGui pauseGui = GameObject.Find("PauseGui").GetComponent<PauseGui>();
 		
-		GameConstants gameConstants = GameObject.Find("GameConstants").GetComponent<GameConstants>();
+		GameConstantsSelector gameConstantsSelector = GameObject.Find("GameConstantsSelector").GetComponent<GameConstantsSelector>();
+		GameConstants gameConstants = gameConstantsSelector.getGameConstants();
 		GUIText velocityText = GameObject.Find("TextVelocity").GetComponent<GUIText>();
 		tk2dTextMesh velocityTextMesh = GameObject.Find("Main Camera/VelocityText").GetComponent<tk2dTextMesh>();
 		
