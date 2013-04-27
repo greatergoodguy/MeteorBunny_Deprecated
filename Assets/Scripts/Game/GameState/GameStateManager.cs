@@ -6,7 +6,8 @@ public class GameStateManager{
 	
 	public IGameState setupState;
 	public IGameState startState;
-	public IGameState runningState;
+	public IGameState runningPhase1State;
+	public IGameState runningPhase2State;
 	public IGameState finishState;
 	
 	public IGameState mainMenuState;

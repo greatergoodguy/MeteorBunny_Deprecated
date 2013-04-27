@@ -32,7 +32,7 @@ public class PauseState : IGameState {
 		GameStateManager gameStateManager = GameStateManager.getSingleton();
 		
 		if(pauseGui.isButton1Down())
-			return gameStateManager.runningState;
+			return gameStateManager.runningPhase1State;
 		else if(pauseGui.isButton2Down())
 			return gameStateManager.setupState;
 		else if(pauseGui.isButton3Down())

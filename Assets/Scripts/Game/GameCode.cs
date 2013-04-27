@@ -41,10 +41,12 @@ public class GameCode : MonoBehaviour {
 	
 		meteorController = new MeteorController(meteor, input, gameConstants);
 		
+		// Here is where all the game states should be defined
 		gameStateManager.mainMenuState = new MainMenuState(mainMenuGuiGO);
 		gameStateManager.setupState = new SetupState(challenges, meteorController, velocityTextMeshGO);
 		gameStateManager.startState = new StartState();
-		gameStateManager.runningState = new RunningState(meteorController, meteor, planet, velocityTextMesh, velocityTextMeshGO);
+		gameStateManager.runningPhase1State = new RunningPhase1State(meteorController, meteor, planet, velocityTextMesh, velocityTextMeshGO);
+		gameStateManager.runningPhase2State = new RunningPhase2State(meteorController, meteor, planet, velocityTextMesh, velocityTextMeshGO);
 		gameStateManager.finishState = new FinishState(finishGameGui);
 		gameStateManager.pauseState = new PauseState(pauseGuiGO);
 		
@@ -64,7 +66,7 @@ public class GameCode : MonoBehaviour {
 		}
 		
 		if(input.isBackButtonDown()){
-			if(activeState == gameStateManager.runningState){
+			if(activeState == gameStateManager.runningPhase1State){
 				changeGameState(gameStateManager.pauseState);	  
 			}
 		}

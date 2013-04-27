@@ -23,6 +23,6 @@ public class StartState : IGameState {
 	public IGameState getNextGameState(){
 		GameStateManager gameStateManager = GameStateManager.getSingleton();
 		
-		return gameStateManager.runningState;
+		return gameStateManager.runningPhase1State;
 	}
 }

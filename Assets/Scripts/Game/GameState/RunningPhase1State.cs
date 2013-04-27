@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class RunningState : IGameState {
+public class RunningPhase1State : IGameState {
 	
 	private GameObject meteor;
 	private GameObject planet;
@@ -10,17 +10,21 @@ public class RunningState : IGameState {
 	private tk2dTextMesh velocityTextMesh;
 	private GameObject velocityTextMeshGO;
 	
-	public RunningState(MeteorController meteorController, GameObject meteor, GameObject planet, tk2dTextMesh velocityTextMesh, GameObject velocityTextMeshGO){
+	private MeteorOnTriggerEnter meteorOnTriggerEnter;
+	
+	public RunningPhase1State(MeteorController meteorController, GameObject meteor, GameObject planet, tk2dTextMesh velocityTextMesh, GameObject velocityTextMeshGO){
 		this.meteorController = meteorController;
 		this.meteor = meteor;
 		this.planet = planet;
 		this.velocityTextMesh = velocityTextMesh;
 		this.velocityTextMeshGO = velocityTextMeshGO;
+		
+		meteorOnTriggerEnter = GameObject.Find("Meteor").GetComponent<MeteorOnTriggerEnter>();
 	}
 	
 	public void enterState () {
 		velocityTextMeshGO.SetActive(true);
-		Time.timeScale = 0.5f;
+		Time.timeScale = 1;
 	}
 	
 	public void update () {
@@ -38,13 +42,17 @@ public class RunningState : IGameState {
 	}
 	
 	public bool isStateFinished() {		
+		/*
 		bool isFinished = meteor.transform.position.y < planet.transform.position.y;
 		return isFinished;
+		*/
+		
+		return meteorOnTriggerEnter.isPhase2Activated();
 	}
 	
 	public IGameState getNextGameState(){
 		GameStateManager gameStateManager = GameStateManager.getSingleton();
 		
-		return gameStateManager.finishState;
+		return gameStateManager.runningPhase2State;
 	}
 }
