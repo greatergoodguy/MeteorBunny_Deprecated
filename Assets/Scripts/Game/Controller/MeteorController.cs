@@ -9,14 +9,14 @@ using UnityEngine;
 using System;
 
 public class MeteorController {
-	private Vector3 meteorStartPos;
+	public bool HAS_MAX_VELOCITY;
+	public float MAX_VELOCITY;
 	
-	private float FINAL_MAX_VERTICAL_VELOCITY;
-	private float INITIAL_MAX_VERTICAL_VELOCITY;
 	private float INCREASE_FACTOR;
 	private float GRAVITY_ACCEL;
 	
-	private float maxVerticalVelocity;
+	private Vector3 meteorStartPos;
+	
 	private float horizontalVelocity;
 	private float verticalVelocity;
 	
@@ -37,16 +37,13 @@ public class MeteorController {
 		
 		meteorStartPos = meteor.transform.position;
 		
-		FINAL_MAX_VERTICAL_VELOCITY		= gameConstants.finalMaxVerticalVelocity;
-		INITIAL_MAX_VERTICAL_VELOCITY 	= gameConstants.initialMaxVerticalVelocity;
+		HAS_MAX_VELOCITY			= gameConstants.hasMaxVelocity;
+		MAX_VELOCITY					= gameConstants.maxVelocity;
 		INCREASE_FACTOR 				= gameConstants.increaseFactor;
-		maxVerticalVelocity				= INITIAL_MAX_VERTICAL_VELOCITY;
 		GRAVITY_ACCEL 					= gameConstants.gravityAcceleration;
 		horizontalVelocity 				= gameConstants.horizontalVelocity;
-		verticalVelocity 				= 0;
-		
-		DebugUtils.Assert(INITIAL_MAX_VERTICAL_VELOCITY != 0);
-		DebugUtils.Assert(maxVerticalVelocity != 0);
+		verticalVelocity 					= 0;
+
 		DebugUtils.Assert(GRAVITY_ACCEL != 0);
 		DebugUtils.Assert(horizontalVelocity != 0);
 		
@@ -83,17 +80,12 @@ public class MeteorController {
 		const float GRAVITY_MULTIPLIER = 20f;
 		
 		verticalVelocity = verticalVelocity + GRAVITY_ACCEL * Time.deltaTime;
-		verticalVelocity = Math.Min(verticalVelocity, maxVerticalVelocity);
+		if(HAS_MAX_VELOCITY)
+			verticalVelocity = Mathf.Min(verticalVelocity, MAX_VELOCITY);
 		
 		float fallDistance = verticalVelocity * Time.deltaTime + (1 / 2.0f) * GRAVITY_ACCEL * Time.deltaTime * Time.deltaTime;
-		fallDistance = -fallDistance * GRAVITY_MULTIPLIER;
-			characterController.Move(new Vector3(0, fallDistance, 0));
-		
-		if(verticalVelocity >= maxVerticalVelocity){
-		
-			if(maxVerticalVelocity < FINAL_MAX_VERTICAL_VELOCITY)
-				maxVerticalVelocity += Time.deltaTime * INCREASE_FACTOR;
-		}
+		fallDistance = -fallDistance * INCREASE_FACTOR;
+		characterController.Move(new Vector3(0, fallDistance, 0));
 	}
 	
 	public void resetVerticalVelocity() {
@@ -106,17 +98,7 @@ public class MeteorController {
 	}
 	
 	public void decreaseVerticalVelocity(float decreaseAmount) {
-		if(isAtMaxVelocity())
-			maxVerticalVelocity -= decreaseAmount;
-			
 		verticalVelocity -= decreaseAmount;
-		
-		
-		if(maxVerticalVelocity < INITIAL_MAX_VERTICAL_VELOCITY)
-			maxVerticalVelocity = INITIAL_MAX_VERTICAL_VELOCITY;
-		
-		if(maxVerticalVelocity > FINAL_MAX_VERTICAL_VELOCITY)
-			maxVerticalVelocity = FINAL_MAX_VERTICAL_VELOCITY;
 		
 		if(verticalVelocity < 0)
 			verticalVelocity = 0;
@@ -130,12 +112,5 @@ public class MeteorController {
 		resetVerticalVelocity();
 		meteor.transform.position = meteorStartPos;
 	}
-	
-	private bool isAtMaxVelocity(){
-		float FAULT_TOLERANCE = 0.7f;
-		if(verticalVelocity >= maxVerticalVelocity - FAULT_TOLERANCE)
-			return true;
-		
-		return false;
-	}
+
 }
