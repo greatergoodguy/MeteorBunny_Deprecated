@@ -20,6 +20,7 @@ public class RunningState : IGameState {
 	
 	public void enterState () {
 		velocityTextMeshGO.SetActive(true);
+		Time.timeScale = 0.5f;
 	}
 	
 	public void update () {
@@ -33,6 +34,7 @@ public class RunningState : IGameState {
 	public void exitState () {
 		velocityTextMesh.enabled = false;
 		velocityTextMeshGO.SetActive(false);
+		Time.timeScale = 1;
 	}
 	
 	public bool isStateFinished() {		

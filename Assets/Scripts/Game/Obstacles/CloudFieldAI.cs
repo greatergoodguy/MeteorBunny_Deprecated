@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class CloudAI : MonoBehaviour, IObstacleAI {
+public class CloudFieldAI : MonoBehaviour, IObstacleAI {
 	public float subtractVelocity = 3.0f;
 	
 	private MeteorController meteorController;

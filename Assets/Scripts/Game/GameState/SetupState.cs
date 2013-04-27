@@ -20,13 +20,18 @@ public class SetupState : IGameState {
 		foreach (GameObject obstacleGO in obstaclesGOs){
 			IObstacleAI obstacleAI = null;
 			
-			if(obstacleGO.name == "Cloud1"){							obstacleAI = obstacleGO.GetComponent<CloudAI>();}
+			if(obstacleGO.name == "CloudField"){							obstacleAI = obstacleGO.GetComponent<CloudFieldAI>();}
+			else if(obstacleGO.name == "CloudBase"){							obstacleAI = obstacleGO.GetComponent<CloudBaseAI>();}
 			else if(obstacleGO.name == "RedBalloonActivationBound"){	obstacleAI = obstacleGO.GetComponent<RedBalloonActivatorAI>();}
 			else if(obstacleGO.name == "RedBalloonSprite"){				obstacleAI = obstacleGO.GetComponent<RedBalloonAI>();}
 			else if(obstacleGO.name == "SatelliteActivationBound"){		obstacleAI = obstacleGO.GetComponent<SatelliteActivatorAI>();}
 			else if(obstacleGO.name == "SatelliteAnim"){				obstacleAI = obstacleGO.GetComponent<SatelliteAI>();}
 			else if(obstacleGO.name == "UfoActivationBound"){			obstacleAI = obstacleGO.GetComponent<UfoActivatorAI>();}
 			else if(obstacleGO.name == "UfoAnim"){						obstacleAI = obstacleGO.GetComponent<UfoAI>();}
+			else if(obstacleGO.name == "Cloud1"){							obstacleAI = obstacleGO.GetComponent<CloudBaseAI>();}
+			else{
+				Debug.Log(obstacleGO.name);
+			}
 			
 			DebugUtils.Assert(obstacleAI != null);
 			obstacles.Add(obstacleAI);
