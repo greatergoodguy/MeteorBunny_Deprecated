@@ -14,6 +14,9 @@ public class GameCode : MonoBehaviour {
 	private IGameState activeState;
 	private IInput input;
 	
+	private GameObject mainMenu_Deprecated;
+	private GameObject mainMenu;
+	
 	void Awake () {
 		DebugUtils.Assert(meteor != null);
 		DebugUtils.Assert(planet != null);
@@ -53,7 +56,9 @@ public class GameCode : MonoBehaviour {
 		activeState = gameStateManager.mainMenuState;	
 		activeState.enterState();
 		
-		print (activeState.GetType().Name);
+		mainMenu = GameObject.Find("Gui Camera");
+		mainMenu_Deprecated = GameObject.Find("Main Camera");
+		mainMenu_Deprecated.SetActive(false);
 	}
 	
 	void Start () {}
